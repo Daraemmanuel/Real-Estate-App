@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +14,7 @@ use App\Http\Controllers\AgentController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+*/ 
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,18 +32,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'role:admin'])->group(function(){
-        Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+Route::middleware(['auth','role:admin'])->group(function(){
 
+ Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard'); 
 
-}); //End Group Admin Middleware
+ Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout'); 
 
-Route::middleware(['auth', 'role:agent'])->group(function(){
-    Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
+}); // End Group Admin Middleware
+  
 
+Route::middleware(['auth','role:agent'])->group(function(){
 
-}); //End Group Agent Middleware
+Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
 
-
-
- 
+}); // End Group Agent Middleware
